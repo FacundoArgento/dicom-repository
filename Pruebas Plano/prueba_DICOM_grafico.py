@@ -202,11 +202,11 @@ def graficar_plano_EC(dcm_eje, grafica, color_punto='red', color_plano='red'):
 
 # Comienzo
 
-filename = 'CasoA/SE0014 CINE_TF2D13_RETRO_EJE_CORTO/OUTIM0008.dcm'
-dcm_eje_corto = Dicom(filename)
+filename = 'CasoA/SE0013 CINE_TF2D13_RETRO_EJE_CORTO/OUTIM0023.dcm'
+dcm_1 = Dicom(filename)
 
-filename2 = 'CasoA/SE0008 CINE_TF2D13_RETRO_4_CAMARAS/OUTIM0001.dcm'
-dcm_eje_largo = Dicom(filename2)
+filename2 = 'CasoA/SE0004 CINE_TF2D13_RETRO_EJE_LARGO/OUTIM0001.dcm'
+dcm_2= Dicom(filename2)
 
 # GRAFICA de planos
 
@@ -215,13 +215,13 @@ grafica = figura.add_subplot(111, projection='3d')
 
 # Calculamos la recta interseccion entre ambos planos y la graficamos
 
-graficar_plano_EC(dcm_eje_corto, grafica, color_punto='red', color_plano='blue')
-graficar_plano_EL(dcm_eje_largo, grafica, color_punto='blue', color_plano='red')
-graficar_recta_interseccion(dcm_eje_corto, dcm_eje_largo)
+graficar_plano_EC(dcm_1, grafica, color_punto='red', color_plano='blue')
+graficar_plano_EL(dcm_2, grafica, color_punto='blue', color_plano='red')
+graficar_recta_interseccion(dcm_1, dcm_2)
 
 # Dibujamos las rectas en las imagenesss
 
-dibujar_recta_interseccion(dcm_eje_corto,dcm_eje_largo)
+dibujar_recta_interseccion(dcm_1,dcm_2)
 
 
 grafica.set_title('Grafica Interseccion entre Planos')
