@@ -67,7 +67,6 @@ imagen3_copy = color.gray2rgb(imagen3.copy())
 imagen4 = ci.leer_imagen_dicom(filename4)
 imagen4_copy = color.gray2rgb(imagen4.copy())
 
-
 ## WINDOWS
 
 cv2.namedWindow("ventana 1",cv2.WINDOW_NORMAL)
