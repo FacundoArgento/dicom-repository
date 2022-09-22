@@ -6,40 +6,50 @@ from tkinter import Label
 from tkinter import ttk
 from tkinter import filedialog
 from tkinter import Tk
+import glob
 
 
 def anonymize_files(path):
-    directory = fsencode(path)
+    recursive_path= path + "/**/*.dcm"
     i=0
     try:
-        for file in listdir(directory):
-            filename = fsdecode(file)
-            if(filename.endswith(".dcm")):
+        # for file in listdir(directory):
+        #     filename = fsdecode(file)
+        for filename in glob.glob(recursive_path, recursive=True):
+            # if(filename.endswith(".dcm")):
+            dicom_path = pathh.join(path, filename)
             
-                dicom_path = pathh.join(path, filename)
-                
-                dicom = dcmread(dicom_path)
+            dicom = dcmread(dicom_path)
 
-                # dicom.PatientName.family_name=""
-                # dicom.PatientName.given_name=""
-                # dicom.PatientName.ideographic=""
-                # dicom.PatientName.middle_name=""
-                # dicom.PatientName.name_prefix=""
-                # dicom.PatientName.name_suflix=""
-                # dicom.PatientName.original_string=""
+            dicom.AcquisitionDate=""
+            dicom.AccessionNumber=""
+            dicom.AdditionalPatientHistory=""
+            
+            dicom.ContentDate=""
+            dicom.ContentTime=""
 
-                dicom.PatientName=""
-                dicom.PatientID=""
-                
-                dicom.OtherPatientsIDs=""
-                dicom.PerformingPhysicianName=""
-                dicom.ReferringPhysicianName=""
-        
-                dcmwrite(dataset=dicom, filename=dicom_path)
+            dicom.PatientName=""
+            dicom.PatientID=""
+            dicom.PatientBirthDate=""
 
-                i+=1
-                # if (i==20):
-                #      break
+            dicom.InstitutionName=""
+            dicom.InstitutionAddress=""
+            dicom.InstitutionDepartmentName=""
+
+            dicom.PerformedProcedureStepStartDate=""
+            dicom.PerformedProcedureStepID=""
+            dicom.InstanceCreationDate=""
+            dicom.InstanceCreationTime=""
+
+            dicom.OtherPatientsIDs=""
+            dicom.PerformingPhysicianName=""
+            dicom.ReferringPhysicianName=""
+    
+            dcmwrite(dataset=dicom, filename=dicom_path)
+
+            i+=1
+            # if (i==20):
+            #      break
     except:
         print("Exception", exc_info()[0], "occurred.")
     finally:
@@ -59,7 +69,7 @@ def select_file():
 #Create an instance of Tkinter frame
 win= Tk()
 
-win.geometry("1200x700")
+win.geometry("1280x720")
 win.resizable(0,0)
 win.title("Dicom Anonimizer")
 win.config(background="lightblue")
