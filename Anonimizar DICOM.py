@@ -27,7 +27,6 @@ def anonymize_files(path):
             
             dicom.ContentDate=""
             dicom.ContentTime=""
-
             dicom.PatientName=""
             dicom.PatientID=""
             dicom.PatientBirthDate=""
@@ -35,6 +34,15 @@ def anonymize_files(path):
             dicom.InstitutionName=""
             dicom.InstitutionAddress=""
             dicom.InstitutionDepartmentName=""
+            dicom.InstitutionalDepartmentName=""
+
+            dicom.StationName=""
+            dicom.StudyDate=""
+            dicom.SeriesDate=""
+            # Requested Procedure ID & Scheduled Procedure Step Id
+            dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
+            dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
+            #dicom.RequestAttributesSequence=""
 
             dicom.PerformedProcedureStepStartDate=""
             dicom.PerformedProcedureStepID=""
@@ -42,9 +50,13 @@ def anonymize_files(path):
             dicom.InstanceCreationTime=""
 
             dicom.OtherPatientsIDs=""
+            dicom.OperatorsName=""
             dicom.PerformingPhysicianName=""
+            dicom.PhysiciansOfRecord=""
             dicom.ReferringPhysicianName=""
-    
+            dicom.RequestingPhysician=""
+
+
             dcmwrite(dataset=dicom, filename=dicom_path)
 
             i+=1
