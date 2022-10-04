@@ -1,6 +1,7 @@
 from os import fsdecode, fsencode, listdir
 from os import path as pathh
 from sys import exc_info
+from turtle import left
 from pydicom import dcmread, dcmwrite 
 from tkinter import Label
 from tkinter import ttk
@@ -10,60 +11,62 @@ import glob
 
 
 def anonymize_files(path):
-    recursive_path= path + "/**/*.dcm"
+    recursive_path= path + "/**"
     i=0
     try:
-        # for file in listdir(directory):
-        #     filename = fsdecode(file)
-        for filename in glob.glob(recursive_path, recursive=True):
-            # if(filename.endswith(".dcm")):
-            dicom_path = pathh.join(path, filename)
-            
-            dicom = dcmread(dicom_path)
+        for filename in glob.iglob(recursive_path, recursive=True):
+            if(filename.endswith(".dcm")):
+                dicom_path = pathh.join(path, filename)
+                
+                dicom = dcmread(dicom_path)
 
-            dicom.AcquisitionDate=""
-            dicom.AccessionNumber=""
-            dicom.AdditionalPatientHistory=""
-            
-            dicom.ContentDate=""
-            dicom.ContentTime=""
-            dicom.PatientName=""
-            dicom.PatientID=""
-            dicom.PatientBirthDate=""
+                dicom.AcquisitionDate=""
+                dicom.AccessionNumber=""
+                dicom.AdditionalPatientHistory=""
+                
+                dicom.ContentDate=""
+                dicom.ContentTime=""
+                dicom.PatientName=""
+                dicom.PatientID=""
+                dicom.PatientBirthDate=""
 
-            dicom.InstitutionName=""
-            dicom.InstitutionAddress=""
-            dicom.InstitutionDepartmentName=""
-            dicom.InstitutionalDepartmentName=""
+                dicom.InstitutionName=""
+                dicom.InstitutionAddress=""
+                dicom.InstitutionDepartmentName=""
+                dicom.InstitutionalDepartmentName=""
 
-            dicom.StationName=""
-            dicom.StudyDate=""
-            dicom.SeriesDate=""
-            # Requested Procedure ID & Scheduled Procedure Step Id
-            dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
-            dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
-            #dicom.RequestAttributesSequence=""
+                dicom.StudyID=""
+                dicom.StationName=""
+                dicom.StudyDate=""
+                dicom.SeriesDate=""
+                # Requested Procedure ID & Scheduled Procedure Step Id
+                dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
+                dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
+                #dicom.RequestAttributesSequence=""
 
-            dicom.PerformedProcedureStepStartDate=""
-            dicom.PerformedProcedureStepID=""
-            dicom.InstanceCreationDate=""
-            dicom.InstanceCreationTime=""
+                dicom.PerformedProcedureStepStartDate=""
+                dicom.PerformedProcedureStepID=""
+                dicom.InstanceCreationDate=""
+                dicom.InstanceCreationTime=""
 
-            dicom.OtherPatientsIDs=""
-            dicom.OperatorsName=""
-            dicom.PerformingPhysicianName=""
-            dicom.PhysiciansOfRecord=""
-            dicom.ReferringPhysicianName=""
-            dicom.RequestingPhysician=""
+                dicom.OtherPatientsIDs=""
+                dicom.OperatorsName=""
+                dicom.PerformingPhysicianName=""
+                dicom.PhysiciansOfRecord=""
+                dicom.ReferringPhysicianName=""
+                dicom.RequestingPhysician=""
 
 
-            dcmwrite(dataset=dicom, filename=dicom_path)
+                dcmwrite(dataset=dicom, filename=dicom_path)
 
-            i+=1
-            # if (i==20):
-            #      break
+                i+=1
+                # if (i==20):
+                #      break
+            else:
+                continue
     except:
         print("Exception", exc_info()[0], "occurred.")
+        Label(win, text="Ha ocurrido un error del tipo: {0} \nEn el archivo {1}. \nSe termina la iteracion, verificar archivo.".format(exc_info()[0], dicom_path), font=13, background="lightblue", fg="red").pack()
     finally:
         dcmwrite(dataset=dicom, filename=dicom_path)
 
