@@ -23,7 +23,7 @@ def anonymize_files(path):
                 dicom.AcquisitionDate=""
                 dicom.AccessionNumber=""
                 dicom.AdditionalPatientHistory=""
-                
+                    
                 dicom.ContentDate=""
                 dicom.ContentTime=""
                 dicom.PatientName=""
@@ -40,9 +40,9 @@ def anonymize_files(path):
                 dicom.StudyDate=""
                 dicom.SeriesDate=""
                 # Requested Procedure ID & Scheduled Procedure Step Id
-                dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
-                dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
-                #dicom.RequestAttributesSequence=""
+                # dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
+                # dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
+                dicom.RequestAttributesSequence=[]
 
                 dicom.PerformedProcedureStepStartDate=""
                 dicom.PerformedProcedureStepID=""
