@@ -1,7 +1,6 @@
 # dicom-repository
 
-Cosas para revisar:
+Cosas a realizar:
 
--Puntos marcados en recta 1 de dicom 1, cuando se marcan en la recta correspondiente de la vista correspondiente no es exacto.
-Puede ser porque la recta nosotros la graficamos a partir de dos puntos. Asumo que interpolando mejoraría la presición ya que la resolucion de las imagenes es muy baja.
-
+- Realizar la diferenciacion entre las imágenes fuera de rango para el entrenamiento de la red.
+- Entrenar las distintas redes con lo realizado en el punto 1 y comparar resultados.
