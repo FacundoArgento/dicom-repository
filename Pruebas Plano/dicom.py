@@ -66,7 +66,8 @@ class Dicom:
         matriz = self.get_matriz_reducida_mapeo_pixel_en_el_espacio()
 
         # vector = [coordenadas_xy_pixel[0],coordenadas_xy_pixel[1],0,1]
-        coordenadas_xy_pixel = np.abs(coordenadas_xy_pixel)
+        coordenadas_xy_pixel2 = np.abs(coordenadas_xy_pixel)
+        coordenadas_xy_pixel = coordenadas_xy_pixel
 
         vector = [coordenadas_xy_pixel[0],coordenadas_xy_pixel[1],1]
         punto_en_el_espacio = np.dot(matriz, vector)
@@ -154,10 +155,19 @@ class Dicom:
         print('Coordenadas espacio')
         print(coordenada_3d_1, coordenada_3d_2)
 
+        # Calculamos para y=0 e y=filas
+        
+        
         # pixels self
         pixel_11 = self.coordenadas_espacio_a_pixel(coordenada_3d_1)
         pixel_12 = self.coordenadas_espacio_a_pixel(coordenada_3d_2)
 
+        pendiente = (pixel_12[1]-pixel_11[1])/(pixel_12[0]-pixel_11[0])
+        B = pixel_11[1]-(pendiente*pixel_11[0])
+    
+        X0 = int(np.round(B))
+        
+        pixel_11 = (0, int(X0))        
         # pixels dcm2
         pixel_21 = dcm_eje2.coordenadas_espacio_a_pixel(coordenada_3d_1)
         pixel_22 = dcm_eje2.coordenadas_espacio_a_pixel(coordenada_3d_2)
