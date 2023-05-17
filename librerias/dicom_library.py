@@ -84,7 +84,7 @@ def anonymize_files(path):
 
 def generate_mask_from_mat_file(root_directory, save_directory):
     """
-    Generate masks from mat file by an given directory, and save the results in the directory 
+    Generate masks from .mat file by an given directory, and save the results in the directory 
     indicated in save_directory.
 
     :param root_directory: Root directory (string) where the data are stored.
