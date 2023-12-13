@@ -1,8 +1,7 @@
 import os
 from sys import exc_info
-import numpy as np
 from scipy.io import loadmat
-from pydicom import dcmread, dcmwrite 
+from pydicom import dcmread, dcmwrite, misc
 from PIL import Image
 from tqdm import tqdm
 from glob import iglob
@@ -23,52 +22,52 @@ def anonymize_files(path):
     i=0
     try:
         for filename in iglob(recursive_path, recursive=True):
-            if(filename.endswith(".dcm")):
-                dicom_path = pathh.join(path, filename)
-                
-                dicom = dcmread(dicom_path)
+            dicom_path = pathh.join(path, filename)
+            if os.path.isfile(dicom_path):
+                if(misc.is_dicom(dicom_path)):
+                    dicom = dcmread(dicom_path)
 
-                dicom.AcquisitionDate=""
-                dicom.AccessionNumber=""
-                dicom.AdditionalPatientHistory=""
-                    
-                dicom.ContentDate=""
-                dicom.ContentTime=""
-                dicom.PatientName=""
-                dicom.PatientID=""
-                dicom.PatientBirthDate=""
+                    dicom.AcquisitionDate=""
+                    dicom.AccessionNumber=""
+                    dicom.AdditionalPatientHistory=""
+                        
+                    dicom.ContentDate=""
+                    dicom.ContentTime=""
+                    dicom.PatientName=""
+                    dicom.PatientID=""
+                    dicom.PatientBirthDate=""
 
-                dicom.InstitutionName=""
-                dicom.InstitutionAddress=""
-                dicom.InstitutionalDepartmentName=""
+                    dicom.InstitutionName=""
+                    dicom.InstitutionAddress=""
+                    dicom.InstitutionalDepartmentName=""
 
-                dicom.StudyID=""
-                dicom.StationName=""
-                dicom.StudyDate=""
-                dicom.SeriesDate=""
-                # Requested Procedure ID & Scheduled Procedure Step Id
-                # dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
-                # dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
-                dicom.RequestAttributesSequence=[]
+                    dicom.StudyID=""
+                    dicom.StationName=""
+                    dicom.StudyDate=""
+                    dicom.SeriesDate=""
+                    # Requested Procedure ID & Scheduled Procedure Step Id
+                    # dicom.RequestAttributesSequence._list[0].ScheduledProcedureStepID=""
+                    # dicom.RequestAttributesSequence._list[0].RequestedProcedureID=""
+                    dicom.RequestAttributesSequence=[]
 
-                dicom.PerformedProcedureStepStartDate=""
-                dicom.PerformedProcedureStepID=""
-                dicom.InstanceCreationDate=""
-                dicom.InstanceCreationTime=""
+                    dicom.PerformedProcedureStepStartDate=""
+                    dicom.PerformedProcedureStepID=""
+                    dicom.InstanceCreationDate=""
+                    dicom.InstanceCreationTime=""
 
-                dicom.OtherPatientsIDs=""
-                dicom.OperatorsName=""
-                dicom.PerformingPhysicianName=""
-                dicom.PhysiciansOfRecord=""
-                dicom.ReferringPhysicianName=""
-                dicom.RequestingPhysician=""
+                    dicom.OtherPatientsIDs=""
+                    dicom.OperatorsName=""
+                    dicom.PerformingPhysicianName=""
+                    dicom.PhysiciansOfRecord=""
+                    dicom.ReferringPhysicianName=""
+                    dicom.RequestingPhysician=""
 
 
-                dcmwrite(dataset=dicom, filename=dicom_path)
+                    dcmwrite(dataset=dicom, filename=dicom_path)
 
-                i+=1
-            else:
-                continue
+                    i+=1
+                else:
+                    continue
     except FileNotFoundError as e:
         print("Exception", exc_info()[0], "occurred.")
         raise FileNotFoundError("File not found.") from e
