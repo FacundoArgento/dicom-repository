@@ -123,3 +123,5 @@ cython_debug/
 #Dicoms siemens
 Pruebas contornos Siemens/Muestra Contorno Siemens
 Statistics/results
+archivos_pruebas
+.vscode

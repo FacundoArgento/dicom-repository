@@ -172,8 +172,6 @@ if __name__ == '__main__':
         # get x_resolution and y_resolution, [0,0][0][0]
         resX, resY = data_struct['ResolutionX'][0,0][0][0], data_struct['ResolutionY'][0,0][0][0]
 
-        data_image = data_struct['IM'][0,0]
-
         # search where the data is stored...
         for i in range(data_struct['EndoX'].shape[1]):
             if data_struct['EndoX'][0,i].shape != (0,0):
@@ -185,6 +183,7 @@ if __name__ == '__main__':
 
                 rvendoX = data_struct['RVEndoX'][0,i]
                 rvendoY = data_struct['RVEndoY'][0,i]
+                data_image = data_struct['IM'][0,i]
                 break
             else:
                 continue
